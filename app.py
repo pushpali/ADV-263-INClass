@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request
 
-app = Flask(__name__)
+app = Flask(__name__)#run the code in flask
 
-@app.route("/")
+@app.route("/")#this app.py file will connect to the index.html browser
 def visitors():
 
     # Load current count
@@ -19,18 +19,18 @@ def visitors():
     counter_write_file.close()
 
     # Render HTML with count variable
-    return render_template("index.html", count=visitors_count)
+    return render_template("index.html", count=visitors_count)#show the output in index.html
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST'])#clicking on the submit button
 def covid_stats():
     # Load current count
     counter_read_file = open("count.txt", "r")
     visitors_count = int(counter_read_file.read())
     counter_read_file.close()
 
-    text = request.form['text']
+    text = request.form['text']#fetch the input from the box
 
-    corona_data = 'https://corona.dnsforfamily.com/graph.png?c='+text
+    corona_data = 'https://covidstats-sdbd.onrender.com/?country='+text
     print(corona_data)
     return render_template("index.html", image=corona_data, count=visitors_count)
 
